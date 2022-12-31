@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "blog": "https://deno.land/x/blog@0.4.2/blog.tsx"
+  }
+}
