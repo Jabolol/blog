@@ -100,6 +100,8 @@ overriding NvChad's default config. Here we set `onedark` as our default theme,
 and we disable transparency for the background.
 
 ```js
+-- ~/.config/nvim/lua/custom/chadrc.lua
+
 local M = {};
 
 M.ui = {
@@ -119,6 +121,8 @@ Let's create some custom mappings for Neovim. To do that, we create
 `n`ormal, `t`erminal, e`x` and `v`isual, which are some of Neovim's modes.
 
 ```js
+-- ~/.config/nvim/lua/custom/mappings.lua
+
 local M = {}
 
 M.general = {
@@ -142,6 +146,8 @@ add this to `init.lua`. The first entry overrides NvChad's lspconfig, and the
 second one adds a new plugin.
 
 ```js
+-- ~/.config/nvim/lua/custom/plugins/init.lua
+
 return {
     ["neovim/nvim-lspconfig"] = {
         config = function ()
@@ -169,6 +175,8 @@ for all the available `LSP`s, and when installed, add them to the `servers`
 variable.
 
 ```js
+-- ~/.config/nvim/lua/custom/plugins/lspconfig.lua
+
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
@@ -221,8 +229,7 @@ You should see `clang` helping you with the autocomplete! All the key mappings
 are located in `~/.config/nvim/lua/core/mappings.lua`, try to take a look and
 discover new mappings. You can easily override them.
 
-You will also see some mappings being `<leader>` and some letters. In case of
-NvChad, it corresponds to the `space` key. One cool command is `<leader>th`, to
+You will also see some mappings being `<leader>` and some letters. In the case of NvChad, it corresponds to the `space` key. One cool command is `<leader>th`, to
 change themes, and `<leader>uu`, to update NvChad. Should you want to delete
 NvChad, execute the following commands.
 
