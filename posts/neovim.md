@@ -99,7 +99,7 @@ We will first create an important file, `chadrc.lua`. It is in charge of
 overriding NvChad's default config. Here we set `onedark` as our default theme,
 and we disable transparency for the background.
 
-```js
+```lua
 -- ~/.config/nvim/lua/custom/chadrc.lua
 
 local M = {};
@@ -120,7 +120,7 @@ Let's create some custom mappings for Neovim. To do that, we create
 `mappings.lua` in the same folder. The general Object is divided into `i`nsert,
 `n`ormal, `t`erminal, e`x` and `v`isual, which are some of Neovim's modes.
 
-```js
+```lua
 -- ~/.config/nvim/lua/custom/mappings.lua
 
 local M = {}
@@ -145,7 +145,7 @@ extremely easy to add new ones. Create a folder `plugins` inside `custom`, and
 add this to `init.lua`. The first entry overrides NvChad's lspconfig, and the
 second one adds a new plugin.
 
-```js
+```lua
 -- ~/.config/nvim/lua/custom/plugins/init.lua
 
 return {
@@ -174,7 +174,7 @@ Check
 for all the available `LSP`s, and when installed, add them to the `servers`
 variable.
 
-```js
+```lua
 -- ~/.config/nvim/lua/custom/plugins/lspconfig.lua
 
 local on_attach = require("plugins.configs.lspconfig").on_attach
