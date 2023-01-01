@@ -4,8 +4,6 @@ publish_date: 2023-01-01
 abstract: An easy explanation of TypeScript's more advanced concepts
 ---
 
-## Introduction
-
 TypeScript is a humongous improvement over JavaScript. Without even using
 complex types, developers can make use of its `type-safety`, removing virtually
 all `TypeErrors`.
