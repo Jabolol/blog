@@ -1,6 +1,8 @@
 /** @jsx h */
 
 import blog, { h } from "blog";
+import "lua"
+import "typescript"
 
 blog({
   title: "Javi's Blog",
