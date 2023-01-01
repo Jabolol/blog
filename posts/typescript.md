@@ -4,6 +4,18 @@ publish_date: 2023-01-01
 abstract: An easy explanation of TypeScript's more advanced concepts
 ---
 
+## Introduction
+
+TypeScript is a humongous improvement over JavaScript. Without even using
+complex types, developers can make use of its `type-safety`, removing virtually
+all `TypeErrors`.
+
+Even though primitive types such as `number`, `string` or the newer `symbol`
+combined with unions `|` and intersections `&`, and assertions with `as` and
+`satisfies` can be more than enough for a project, it can be challenging to
+satisfy more specific constraints with these basic types. This is where more
+advanced types come into play.
+
 ## Keyof type operator
 
 The `keyof` type operator takes an object type and produces a string or numeric
@@ -37,7 +49,7 @@ instance, this function creates `RequestInit` provided to fetch. The parameters
 of the function use the Indexed Access Types to limit the arguments to those
 matching the `RequestInit` type. We are also using the `satisfies` keyword to
 tell TypeScript that `Object` will be treated as `RequestInit` and that it
-matches its type.
+matches its type, without changing the type using `as`.
 
 ```ts
 const makeReqInit = (
@@ -87,10 +99,10 @@ multiply each item by the multiplier and return the modified `multiplier` array.
 type Element = { items: number[]; multiplier: number };
 
 const getTotal = <T extends Element>(
-  obj: T,
+  { items, multiplier }: T,
 ): T["items"] =>
-  obj.items.reduce<T["items"]>(
-    (acc, val) => [...acc, val * obj.multiplier],
+  items.reduce<T["items"]>(
+    (acc, val) => [...acc, val * multiplier],
     [],
   );
 
@@ -100,15 +112,14 @@ const half = getTotal({ items: [2, 4, 6], multiplier: .5 }); // [1, 2, 3]
 
 It seems as if a lot was going on but in reality, it is quite simple. First of
 all, the `getTotal` function takes a generic `T` type that must satisfy the
-constraint of being an Object and having a key named `items`, that is an array
-of numbers and a `multiplier`, that is a number. After this, we can reference
-subtypes by using bracket notation. We use this in the return type and in the
-reduce function.
+constraint of matching the type `Element`. After this, we can reference subtypes
+by using bracket notation. We use this in the return type and in the reduce
+function.
 
-After that, we use `<Array>.reduce` to iterate over the array, multiply the
-current value and save it to the new array that we will return. To tell
-TypeScript the type of the accumulator, we need to use `reduce<type>(...)`, so
-that it can infer it.
+Then we use `<Array>.reduce` to iterate over the array, multiply the current
+value and save it to the new array that we will return. To tell TypeScript the
+type of the accumulator, we need to use `reduce<type>(...)`, so that it can
+infer it.
 
 ### Compound generic type
 
@@ -143,11 +154,21 @@ otherwise we will get the type in the second branch. For instance, we can take a
 generic argument and decide the type based on that type.
 
 ```ts
-type ToLiteral<T extends number | string> = T extends number ? "number"
+type ToLiteralKey<T extends number | string> = T extends number ? "number"
   : "string";
 
-let num: ToLiteral<105>; // "number"
-let str: ToLiteral<"hi">; // "string"
+const myObject: Record<"number" | "string", 1 | "1"> = {
+  number: 1,
+  string: "1",
+};
+
+const numKey: ToLiteralKey<1> = "number";
+const strKey: ToLiteralKey<"1"> = "string";
+
+const newObj = {
+  numKey: myObject[numKey], // 1
+  strKey: myObject[strKey], // "1"
+};
 ```
 
 ### Infer keyword
@@ -159,8 +180,10 @@ the first parameter of a function.
 ```ts
 type FirstParam<T> = T extends (...t: infer p) => unknown ? p[0] : never;
 
-const canDrink = (key: "kid" | "adult") => key === "adult";
-type FunctionParams = FirstParam<typeof canDrink>; // "kid" | "adult"
+const getOlder = (param: { people: { ages: number[] } }) =>
+  Math.max.apply(this, param.people.ages);
+
+type ParamType = FirstParam<typeof getOlder>; // { people: { ages: number[] } };
 ```
 
 First of all, we are checking whether the generic type `T` is a function. Then
@@ -168,9 +191,10 @@ we are using the spread operator to get all parameters and `infer`ring them to
 the type `p`. If `T` satisfies the constraints we are returning the first type
 of the array of types enclosed in `p`, otherwise, we return `never`.
 
-Another interesting type we can do is the `ReturnType` type. It is implemented
-in TypeScript itself, but understanding it will help to understand the `infer`
-keyword.
+Another interesting type we can do is the
+[`ReturnType`](https://www.typescriptlang.org/docs/handbook/utility-types.html#returntypetype)
+type. It is implemented in TypeScript itself, but understanding it will help to
+understand the `infer` keyword.
 
 ```ts
 type ReturnType<T extends (...args: any) => any> = T extends
@@ -179,6 +203,42 @@ type ReturnType<T extends (...args: any) => any> = T extends
 let output: ReturnType<typeof setTimeout>; // number
 ```
 
-First of all, we are checking whether the generic type `T` is a function. Then we
-are using conditional types to isolate the return type in the `R` type, to
+First of all, we are checking whether the generic type `T` is a function. Then
+we are using conditional types to isolate the return type in the `R` type, to
 return it.
+
+## Built-in types
+
+TypeScript has a myriad of
+[built-in types](https://www.typescriptlang.org/docs/handbook/utility-types.html),
+which come in handy. For instance,
+[`Required<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredtype)
+type marks all optional properties as required,
+[`Record<K, V>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)
+creates the type for an object with keys of type `K` and values of type `V`, and
+so on. Even
+[`Parameters<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype)
+returns a tuple with the argument types of the function passed in `T`, such as
+we did before!
+
+```ts
+import { cyan } from "https://deno.land/std@0.127.0/fmt/colors.ts";
+
+const myObject: Record<string, string> = {
+  telephone: "555-5555",
+  id: crypto.randomUUID(),
+  get [Symbol.toStringTag]() {
+    return cyan("myObject"); // color the output
+  },
+};
+
+console.log(myObject.toString()); // [object myObject]
+```
+
+## Wrapping up
+
+TypeScript adds the safety that JavaScript lacks for bigger and more complex
+projects. Due to this, it is increasingly getting more popular amongst
+developers. Understanding more complex types is a must since it allows the
+programmer to have an even better developer experience, and to catch bugs even
+before transpiling the code into JavaScript.
