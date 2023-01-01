@@ -1,5 +1,7 @@
 {
   "imports": {
-    "blog": "https://deno.land/x/blog@0.4.2/blog.tsx"
+    "blog": "https://deno.land/x/blog@0.5.0/blog.tsx",
+    "lua": "https://esm.sh/prismjs@1.29.0/components/prism-lua",
+    "typescript": "https://esm.sh/prismjs@1.29.0/components/prism-typescript"
   }
 }
