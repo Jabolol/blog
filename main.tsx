@@ -1,8 +1,12 @@
 /** @jsx h */
 
 import blog, { h } from "blog";
-import "lua"
-import "typescript"
+import "lua";
+import "bash";
+import "typescript";
+import "powershell";
+import "json";
+import "yaml";
 
 blog({
   title: "Javi's Blog",
@@ -22,7 +26,7 @@ blog({
     target: "_blank",
   }, {
     title: "LinkedIn",
-    url: "https://linkedin.com/in/javier-r%C3%ADos-urbano-16a796236",
+    url: "https://www.linkedin.com/in/javierriosur/",
     target: "_blank",
   }, {
     title: "Discord",
