@@ -229,8 +229,9 @@ You should see `clang` helping you with the autocomplete! All the key mappings
 are located in `~/.config/nvim/lua/core/mappings.lua`, try to take a look and
 discover new mappings. You can easily override them.
 
-You will also see some mappings being `<leader>` and some letters. In the case of NvChad, it corresponds to the `space` key. One cool command is `<leader>th`, to
-change themes, and `<leader>uu`, to update NvChad. Should you want to delete
+You will also see some mappings being `<leader>` and some letters. In the case
+of NvChad, it corresponds to the `space` key. One cool command is `<leader>th`,
+to change themes, and `<leader>uu`, to update NvChad. Should you want to delete
 NvChad, execute the following commands.
 
 ```
