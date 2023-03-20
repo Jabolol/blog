@@ -6,6 +6,7 @@
     "bash": "https://esm.sh/prismjs@1.29.0/components/prism-bash",
     "powershell": "https://esm.sh/prismjs@1.29.0/components/prism-powershell",
     "json": "https://esm.sh/prismjs@1.29.0/components/prism-json",
-    "yaml": "https://esm.sh/prismjs@1.29.0/components/prism-yaml"
+    "yaml": "https://esm.sh/prismjs@1.29.0/components/prism-yaml",
+    "jsx": "https://esm.sh/prismjs@1.29.0/components/prism-jsx"
   }
 }
