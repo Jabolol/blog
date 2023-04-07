@@ -4,6 +4,8 @@ publish_date: 2023-03-20
 abstract: A thorough explanation for yet another obscure Fresh feature, plugins!
 ---
 
+> Featured on **Deno News** [issue #57](https://deno.news/archive/5819)!
+
 As you may or may not know, Fresh is the `next-gen` web framework. Even though
 it is relatively new, it has gained a lot of popularity, with an astonishing
 `10k` stars on [GitHub](https://github.com/denoland/fresh). The main features
