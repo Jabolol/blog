@@ -121,4 +121,4 @@ export default new Pipeline([job]);
 `Cicada` is a really neat tool when it comes to writing `CI` pipelines. It is
 still in `alpha` stage and some features are not available to the public yet.
 Nonetheless, this project seems really interesting and increase the developer
-experience vastly when it comes to `local` testing and deployment.∫
+experience vastly when it comes to `local` testing and deployment.
