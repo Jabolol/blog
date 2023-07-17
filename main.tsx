@@ -7,7 +7,8 @@ import "typescript";
 import "powershell";
 import "json";
 import "yaml";
-import "jsx"
+import "jsx";
+import "makefile";
 
 blog({
   title: "Javi's Blog",
