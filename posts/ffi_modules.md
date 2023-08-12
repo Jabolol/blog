@@ -4,6 +4,9 @@ publish_date: 2023-07-17
 abstract: Discover how to ease the process of publishing FFI-dependent modules
 ---
 
+> Featured on **Deno 1.36**
+> [release notes](https://deno.news/archive/deno-august-update-more-flexible-security-in-136#community-showcase)!
+
 Publishing modules on [`dotland`](https://deno.land/x), Deno's third party
 module registry, is fairly straightforward. Create a public repository on
 GitHub, choose a name for your module, set up a webhook and start releasing! It
@@ -819,18 +822,18 @@ const handler = find(turbo, routes, root);
 
 // Free up resources and close the Turbo library
 Deno.addSignalListener("SIGINT", () => {
-    free(turbo, root);
-    Deno.exit(0);
+  free(turbo, root);
+  Deno.exit(0);
 });
 
 let triggered = false;
 
 globalThis.addEventListener("beforeunload", (evt) => {
-    if (!triggered) {
-        triggered = true;
-        evt.preventDefault();
-        free(turbo, root);
-    }
+  if (!triggered) {
+    triggered = true;
+    evt.preventDefault();
+    free(turbo, root);
+  }
 });
 
 // Start the server and listen for incoming requests
